@@ -1,0 +1,71 @@
+{
+  "version": "2.0.0",
+  "presentation": {
+    "echo": false,
+    "reveal": "always",
+    "focus": false,
+    "panel": "dedicated",
+    "showReuseMessage": true
+  },
+  "tasks": [
+    {
+      "label": "Create terminals",
+      // Mark as the default build task so cmd/ctrl+shift+b will create them
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      // Try start the task on folder open
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      // Add dependsOn property to trigger the myterminal task
+      "dependsOn": ["Docker Compose", "Auction", "Search"]
+    },
+    {
+      "label": "Docker Compose",
+      "type": "shell",
+      "command": "docker compose up -d",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceRoot}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",  // Shared panel with other tasks
+        "clear": true
+      }
+    },
+    {
+      "label": "Auction",
+      "type": "shell",
+      "command": "dotnet watch run",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceRoot}/src/AuctionService"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",  // Shared panel with other tasks
+        "clear": true
+      }
+    },
+    {
+      "label": "Search",
+      "type": "shell",
+      "command": "dotnet watch run",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceRoot}/src/SearchService"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",  // Shared panel with other tasks
+        "clear": true
+      }
+    }
+  ]
+}
