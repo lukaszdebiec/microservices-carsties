@@ -20,22 +20,7 @@
         "runOn": "folderOpen"
       },
       // Add dependsOn property to trigger the myterminal task
-      "dependsOn": ["Docker Compose", "Auction", "Search"]
-    },
-    {
-      "label": "Docker Compose",
-      "type": "shell",
-      "command": "docker compose up -d",
-      "args": [],
-      "options": {
-        "cwd": "${workspaceRoot}"
-      },
-      "isBackground": true,
-      "problemMatcher": [],
-      "presentation": {
-        "panel": "shared",  // Shared panel with other tasks
-        "clear": true
-      }
+      "dependsOn": ["Auction", "Search"]
     },
     {
       "label": "Auction",
@@ -59,6 +44,21 @@
       "args": [],
       "options": {
         "cwd": "${workspaceRoot}/src/SearchService"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",  // Shared panel with other tasks
+        "clear": true
+      }
+    },
+    {
+      "label": "Identity",
+      "type": "shell",
+      "command": "dotnet watch run",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceRoot}/src/IdentityService"
       },
       "isBackground": true,
       "problemMatcher": [],

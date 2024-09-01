@@ -1,0 +1,66 @@
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using IdentityService.Models;
+using Microsoft.AspNetCore.Mvc;
+using IdentityService.Pages.Account.Register;
+using System.Security.Claims;
+using IdentityModel;
+
+namespace IdentityService.Pages.Register
+{
+    [SecurityHeaders]
+    [AllowAnonymous]
+    public class Index : PageModel
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        public Index(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        [BindProperty]
+        public RegisterViewModel Input { get; set; }
+        [BindProperty]
+        public Boolean RegisterSuccess { get; set; }
+        public IActionResult OnGet(string returnUrl)
+        {
+            Input = new RegisterViewModel
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            if(Input.Button != "register") return Redirect("~/");
+
+            if(ModelState.IsValid)
+            {
+                var user = new ApplicationUser{
+                    UserName = Input.Username,
+                    Email = Input.Email,
+                    EmailConfirmed = true
+                };
+
+                var result = await _userManager.CreateAsync(user, Input.Password);
+
+                if(result.Succeeded)
+                {
+                    await _userManager.AddClaimsAsync(user, new Claim[]
+                    {
+                        new Claim(JwtClaimTypes.Name, Input.FullName)
+                    });
+
+                    RegisterSuccess = true;
+                }
+            }
+
+            return Page();
+        }
+
+
+    }
+}
