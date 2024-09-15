@@ -47,7 +47,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapControllers();
 
 try
 {
@@ -60,4 +59,3 @@ catch (Exception e)
 
 app.Run();
 
-app.Run();

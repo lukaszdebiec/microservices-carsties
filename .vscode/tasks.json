@@ -20,7 +20,7 @@
         "runOn": "folderOpen"
       },
       // Add dependsOn property to trigger the myterminal task
-      "dependsOn": ["Auction", "Search"]
+      "dependsOn": ["Auction", "Search", "Identity", "Gateway "]
     },
     {
       "label": "Auction",
@@ -65,7 +65,24 @@
       "presentation": {
         "panel": "shared",  // Shared panel with other tasks
         "clear": true
-      }
+      },
+      
+    },
+    {
+      "label": "Gateway",
+      "type": "shell",
+      "command": "dotnet watch run",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceRoot}/src/GatewayService"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",  // Shared panel with other tasks
+        "clear": true
+      },
+      
     }
   ]
 }
