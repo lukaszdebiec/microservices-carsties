@@ -16,6 +16,11 @@ public class MappingProfiles : Profile
 
         CreateMap<AuctionDto, AuctionCreated>(); 
 
-        CreateMap<Auction, AuctionUpdated>();
+        CreateMap<Auction, AuctionUpdated>()
+            .ForMember(d => d.Make, o => o.MapFrom(s => s.Item.Make))
+            .ForMember(d => d.Model, o => o.MapFrom(s => s.Item.Model))
+            .ForMember(d => d.Year, o => o.MapFrom(s => s.Item.Year))
+            .ForMember(d => d.Color, o => o.MapFrom(s => s.Item.Color))
+            .ForMember(d => d.Mileage, o => o.MapFrom(s => s.Item.Mileage));
     }
 }
